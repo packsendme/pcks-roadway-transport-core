@@ -110,24 +110,7 @@ public class Transport_Service {
 		Response<String> responseObj = null;
 		boolean statusUpdate = false;
 		try {
-			List<Transport> transportFind_L = transportDAO.findOneByIdAndName(transportDto.name_transport, transportDto.initials);
-			System.out.println(" ++ ");
-			System.out.println("prepareUpdate "+ transportFind_L.size());
 			
-			if(transportFind_L.size() > 0) {
-				for(Transport t : transportFind_L) {
-					System.out.println(" +name_transport+ "+ t.name_transport);
-					System.out.println(" +initials+ "+ t.initials);
-					if(t.id.equals(id)) {
-						System.out.println(" UPDATE ");
-						return update(id, transportDto);
-					}
-				}
-			} else if(transportFind_L.size() == 0) {
-				return update(id, transportDto);
-			}
-		}
-			/*
 			Map<String, String> parametersMap = new HashMap<String, String>();
 			parametersMap.put("name", transportDto.name_transport);
 			parametersMap.put("initials", "");
@@ -175,7 +158,7 @@ public class Transport_Service {
 					return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
 				}
 			}
-		}*/
+		}
 		catch (Exception e) {
 			e.printStackTrace();
 			responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), null);
