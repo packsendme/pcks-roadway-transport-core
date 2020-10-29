@@ -83,15 +83,15 @@ public class Initials_Service {
 	public ResponseEntity<?> update(String id, InitialsDto initialsDto) {
 		Response<String> responseObj = null;
 		try {
-			Optional<Initials> initialsData = initialsDAO.findOneById(id);
-			if(initialsData != null) {
+			if(initialsDAO.findOneByName(initialsDto.name) == null) {
+				Optional<Initials> initialsData = initialsDAO.findOneById(id);
 				Initials entity = initialsObj.dtoTOentity(initialsDto, initialsData.get(), RoadwayManagerConstants.UPDATE_OP_ROADWAY);
 				entity = initialsDAO.update(entity);
 				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_INITIALS.getAction(), entity.id);
 				return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
 			}
 			else {
-				return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
 			}
 		}
 		catch (Exception e) {
