@@ -16,9 +16,9 @@ public interface ICrud_Dao<T> {
 	
 	public T update(T entity);
 	
-	public T findOneByIdAndName(String id, String name);
-
 	public T findOneByName(String name);
+	
+	public T findOneByIdAndName(String id, String name);
 	
 	public List<T> findEntityByParameters(Map<String,String> parameters);
 

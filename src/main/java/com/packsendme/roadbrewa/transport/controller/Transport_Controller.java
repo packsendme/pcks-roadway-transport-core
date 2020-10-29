@@ -65,7 +65,7 @@ public class Transport_Controller {
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp, @Validated @RequestParam("id") String id,
 			@Validated  @RequestBody TransportDto transport)
 	{	
-		return transportService.update(id, transport);
+		return transportService.prepareUpdate(id, transport);
 	}
 	
 	
