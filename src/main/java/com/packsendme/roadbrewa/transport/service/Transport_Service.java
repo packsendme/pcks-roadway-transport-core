@@ -52,7 +52,7 @@ public class Transport_Service {
 			
 			List<Transport> transport_L = transportDAO.findEntityByParameters(parametersMap);
 			System.out.println(" ============================== ");
-			System.out.println(" transport_L "+ transport_L.size());
+			System.out.println(" transport_L "+ transport_L);
 			System.out.println(" ============================== ");
 
 			if(transport_L == null) {

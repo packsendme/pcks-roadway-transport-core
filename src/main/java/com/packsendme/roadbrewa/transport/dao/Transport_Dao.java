@@ -93,10 +93,9 @@ public class Transport_Dao implements ICrud_Dao<Transport> {
 	@Override
 	public List<Transport> findEntityByParameters(Map<String,String> parameters) {
 		try {
-			List<Transport> entityL = new ArrayList<Transport>();
 			String p1 = parameters.get("name").toString();
 			String p2 = parameters.get("initials").toString();
-			entityL = transport_Rep.findTransportsByParameters(p1,p2);
+			List<Transport> entityL = transport_Rep.findTransportsByParameters(p1,p2);
 			return entityL;
 		}
 		catch (MongoClientException e) {
