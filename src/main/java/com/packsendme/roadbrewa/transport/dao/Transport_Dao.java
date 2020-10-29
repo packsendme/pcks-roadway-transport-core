@@ -81,8 +81,15 @@ public class Transport_Dao implements ICrud_Dao<Transport> {
 	}
 	
 	@Override
-	public Transport findOneByIdAndName(String id, String name) {
-		return null;
+	public List<Transport> findOneByIdAndName(String name, String initials) {
+		try {
+			Transport entityModel = transport_Rep.findTransportsByNameAndInitials(name,initials);
+			return entityModel; 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null; 
+		}
 	}
 
 	@Override

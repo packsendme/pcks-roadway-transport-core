@@ -110,6 +110,24 @@ public class Transport_Service {
 		Response<String> responseObj = null;
 		boolean statusUpdate = false;
 		try {
+			List<Transport> transportFind_L = transportDAO.findOneByIdAndName(transportDto.name_transport, transportDto.initials);
+			System.out.println(" ++ ");
+			System.out.println("prepareUpdate "+ transportFind_L.size());
+			
+			if(transportFind_L.size() > 0) {
+				for(Transport t : transportFind_L) {
+					System.out.println(" +name_transport+ "+ t.name_transport);
+					System.out.println(" +initials+ "+ t.initials);
+					if(t.id.equals(id)) {
+						System.out.println(" UPDATE ");
+						return update(id, transportDto);
+					}
+				}
+			} else if(transportFind_L.size() == 0) {
+				return update(id, transportDto);
+			}
+		}
+			/*
 			Map<String, String> parametersMap = new HashMap<String, String>();
 			parametersMap.put("name", transportDto.name_transport);
 			parametersMap.put("initials", "");
@@ -157,23 +175,19 @@ public class Transport_Service {
 					return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
 				}
 			}
-		}
+		}*/
 		catch (Exception e) {
 			e.printStackTrace();
 			responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), null);
 			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
 		}
-		return null;
+		return null; 
 	}
 
 	
 	public ResponseEntity<?> update(String id, TransportDto transportDto) {
 		Response<String> responseObj = null;
 		try {
-			// Check if exist same Transport in Database
-			Transport transportFindName = transportDAO.findOneByIdAndName(id, transportDto.name_transport);
-
-			if(transportFindName == null) {
 				Optional<Transport> transportData = transportDAO.findOneById(id);
 				if(transportData.isPresent()) {
 					Transport entity = transportData.get();
@@ -183,14 +197,9 @@ public class Transport_Service {
 					return new ResponseEntity<>(responseObj, HttpStatus.ACCEPTED);
 				}
 				else {
-					responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_TRANSPORT.getAction(), null);
+					responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_TRANSPORT.getAction(), transportDto.name_transport);
 					return new ResponseEntity<>(responseObj, HttpStatus.NOT_FOUND);
 				}
-			}
-			else {
-				responseObj = new Response<String>(0,HttpExceptionPackSend.UPDATE_TRANSPORT.getAction(), transportDto.name_transport);
-				return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
-			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
