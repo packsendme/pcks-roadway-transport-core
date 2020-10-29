@@ -51,11 +51,11 @@ public class Transport_Service {
 			parametersMap.put("initials", "");
 			List<Transport> transportByName_L = transportDAO.findEntityByParameters(parametersMap);
 
-			if(transportByName_L == null) {
+			if(transportByName_L.size() > 0) {
 				parametersMap.put("name", "");
 				parametersMap.put("initials", transportDto.initials);
 				List<Transport> transportByInitials_L = transportDAO.findEntityByParameters(parametersMap);
-				if(transportByInitials_L == null) {
+				if(transportByInitials_L.size() > 0) {
 					Transport entity = transportObj.dtoTOentity(transportDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);
 					entity = transportDAO.save(entity);
 					responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), transportDto.name_transport);
