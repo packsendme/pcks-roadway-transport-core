@@ -5,7 +5,7 @@ pipeline {
         NAME_CONTAINER = "pcks-roadbrewa-transport-core"
         NAME_IMAGE = "pcks-roadbrewa-transport-img:1"
         ID_CONTAINER = null 
-        PORT_CONTAINER = "9019:9019"
+        PORT_CONTAINER = "9020:9020"
     }
 
     stages {
