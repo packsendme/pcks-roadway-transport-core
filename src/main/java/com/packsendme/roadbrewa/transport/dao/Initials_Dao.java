@@ -81,7 +81,7 @@ public class Initials_Dao implements ICrud_Dao<Initials> {
 	}
 	
 	@Override
-	public Initials findOneByIdAndName(String id, String name) {
+	public List<Initials> findOneByIdAndName(String id, String name) {
 		try {
 			return null;
 		}
