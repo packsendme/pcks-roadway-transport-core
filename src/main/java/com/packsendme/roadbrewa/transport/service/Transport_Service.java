@@ -125,11 +125,21 @@ public class Transport_Service {
 			}
 			else if((transportByName_L.size() > 0 ) || (transportByInitials_L.size() > 0 )) {
 				for(Transport t : transportByName_L) {
+					System.out.println("");
+					System.out.println("transportByName_L "+ transportByName_L.size());
+					System.out.println(" ID "+ t.id);
+					System.out.println("");
+
 					if(t.id.equals(id)) {
 						statusUpdate = true;
 					}
 				}
 				for(Transport t : transportByInitials_L) {
+					System.out.println("");
+					System.out.println("transportByInitials_L "+ transportByInitials_L.size());
+					System.out.println(" ID "+ t.id);
+					System.out.println("");
+
 					if(t.id.equals(id)) {
 						statusUpdate = true;
 					}
