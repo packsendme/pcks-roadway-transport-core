@@ -1,6 +1,7 @@
 package com.packsendme.roadbrewa.transport.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ICrud_Dao<T> {
@@ -19,6 +20,6 @@ public interface ICrud_Dao<T> {
 
 	public T findOneByName(String name);
 	
-	public List<T> findEntityByParameters(String name);
+	public List<T> findEntityByParameters(Map<String,String> parameters);
 
 }

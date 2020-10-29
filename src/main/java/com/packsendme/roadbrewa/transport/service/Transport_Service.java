@@ -1,5 +1,8 @@
 package com.packsendme.roadbrewa.transport.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,11 @@ public class Transport_Service {
 	public ResponseEntity<?> save(TransportDto transportDto) {
 		Response<String> responseObj = null;
 		try {
-			if(transportDAO.findOneByName(transportDto.name_transport) == null) {
+			Map<String, String> parametersMap = new HashMap<String, String>();
+			parametersMap.put("name", transportDto.name_transport);
+			parametersMap.put("initials", transportDto.initials);
+			
+			if(transportDAO.findEntityByParameters(parametersMap) == null) {
 				Transport entity = transportObj.dtoTOentity(transportDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);
 				entity = transportDAO.save(entity);
 				responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), entity.id);
@@ -86,6 +93,35 @@ public class Transport_Service {
 			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
+	public ResponseEntity<?> prepareUpdate(String id, TransportDto transportDto) {
+		Response<String> responseObj = null;
+		try {
+			Map<String, String> parametersMap = new HashMap<String, String>();
+			parametersMap.put("name", transportDto.name_transport);
+			parametersMap.put("initials", transportDto.initials);
+			
+			List<Transport> transport_L = transportDAO.findEntityByParameters(parametersMap);
+			if(transport_L != null) {
+				for(Transport t : transport_L) {
+					if(t.id == id) {
+						return update(id, transportDto);
+					}
+				}
+			}
+			else if(transport_L == null) {
+				return update(id, transportDto);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), null);
+			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+		}
+		return null;
+	}
+
 	
 	public ResponseEntity<?> update(String id, TransportDto transportDto) {
 		Response<String> responseObj = null;

@@ -2,6 +2,7 @@ package com.packsendme.roadbrewa.transport.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,28 +82,26 @@ public class Transport_Dao implements ICrud_Dao<Transport> {
 	
 	@Override
 	public Transport findOneByIdAndName(String id, String name) {
-		try {
-			return null;
-		}
-		catch (MongoClientException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	@Override
-	public Transport findOneByName(String name) {
-		try {
-			return transport_Rep.findTransportByName(name);
-		}
-		catch (MongoClientException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return null;
 	}
 
 	@Override
-	public List<Transport> findEntityByParameters(String name) {
-		// TODO Auto-generated method stub
+	public Transport findOneByName(String name) {
 		return null;
+	}
+
+	@Override
+	public List<Transport> findEntityByParameters(Map<String,String> parameters) {
+		try {
+			List<Transport> entityL = new ArrayList<Transport>();
+			String p1 = parameters.get("name").toString();
+			String p2 = parameters.get("initials").toString();
+			entityL = transport_Rep.findTransportsByParameters(p1,p2);
+			return entityL;
+		}
+		catch (MongoClientException e) {
+			e.printStackTrace();
+			return null;
+		}
 	} 
 }
