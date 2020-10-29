@@ -2,6 +2,7 @@ package com.packsendme.roadbrewa.transport.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +102,7 @@ public class Initials_Dao implements ICrud_Dao<Initials> {
 	}
 
 	@Override
-	public List<Initials> findEntityByParameters(String name) {
+	public List<Initials> findEntityByParameters(Map<String,String> parameters) {
 		// TODO Auto-generated method stub
 		return null;
 	} 
