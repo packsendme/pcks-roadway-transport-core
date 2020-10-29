@@ -113,9 +113,9 @@ public class Transport_Service {
 			Map<String, String> parametersMap = new HashMap<String, String>();
 			parametersMap.put("name", transportDto.name_transport);
 			parametersMap.put("initials", "");
+			List<Transport> transportByName_L = transportDAO.findEntityByParameters(parametersMap);
 			parametersMap = new HashMap<String, String>();
 			
-			List<Transport> transportByName_L = transportDAO.findEntityByParameters(parametersMap);
 			parametersMap.put("name", "");
 			parametersMap.put("initials", transportDto.initials);
 			List<Transport> transportByInitials_L = transportDAO.findEntityByParameters(parametersMap);
