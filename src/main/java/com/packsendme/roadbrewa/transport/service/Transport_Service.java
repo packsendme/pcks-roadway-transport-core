@@ -124,24 +124,28 @@ public class Transport_Service {
 			if((transportByName_L.size() == 0 ) && (transportByInitials_L.size() == 0 )) {
 				return update(id, transportDto);
 			}
-			else if((transportByName_L.size() > 0 ) || (transportByInitials_L.size() > 0 )) {
-				for(Transport t : transportByName_L) {
-					System.out.println("");
-					System.out.println("transportByName_L "+ transportByName_L.size());
-					System.out.println(" ID "+ t.id);
-					System.out.println("");
-
+			else if((transportByName_L.size() == 0 ) && (transportByInitials_L.size() > 0 )) {
+				for(Transport t : transportByInitials_L) {
 					if(t.id.equals(id)) {
-						statusUpdate = true;
+						return update(id, transportDto);
+					}
+				}
+			}
+			else if((transportByName_L.size() > 0 ) && (transportByInitials_L.size() == 0 )) {
+				for(Transport t : transportByName_L) {
+					if(t.id.equals(id)) {
+						return update(id, transportDto);
+					}
+				}
+			}
+			else if((transportByName_L.size() > 0 ) && (transportByInitials_L.size() > 0 )) {
+				for(Transport t : transportByName_L) {
+					if(t.id.equals(id)) {
+						return update(id, transportDto);
 					}
 				}
 				if(statusUpdate == true) {
 					for(Transport t : transportByInitials_L) {
-						System.out.println("");
-						System.out.println("transportByInitials_L "+ transportByInitials_L.size());
-						System.out.println(" ID "+ t.id);
-						System.out.println("");
-	
 						if(t.id.equals(id)) {
 							statusUpdate = true;
 						}
