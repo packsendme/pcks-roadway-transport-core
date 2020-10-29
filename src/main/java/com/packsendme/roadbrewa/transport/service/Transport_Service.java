@@ -48,20 +48,26 @@ public class Transport_Service {
 		try {
 			Map<String, String> parametersMap = new HashMap<String, String>();
 			parametersMap.put("name", transportDto.name_transport);
-			parametersMap.put("initials", transportDto.initials);
-			
-			List<Transport> transport_L = transportDAO.findEntityByParameters(parametersMap);
-			System.out.println(" ============================== ");
-			System.out.println(" transport_L "+ transport_L);
-			System.out.println(" ============================== ");
+			parametersMap.put("initials", "");
+			List<Transport> transportByName_L = transportDAO.findEntityByParameters(parametersMap);
 
-			if(transport_L == null) {
-				Transport entity = transportObj.dtoTOentity(transportDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);
-				entity = transportDAO.save(entity);
-				responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), entity.id);
-				return new ResponseEntity<>(responseObj, HttpStatus.OK);
+			if(transportByName_L == null) {
+				parametersMap.put("name", "");
+				parametersMap.put("initials", transportDto.initials);
+				List<Transport> transportByInitials_L = transportDAO.findEntityByParameters(parametersMap);
+				if(transportByInitials_L == null) {
+					Transport entity = transportObj.dtoTOentity(transportDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);
+					entity = transportDAO.save(entity);
+					responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), transportDto.name_transport);
+					return new ResponseEntity<>(responseObj, HttpStatus.OK);
+				}
+				else {
+					responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), transportDto.name_transport);
+					return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
+				}
 			}
 			else {
+				responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), transportDto.name_transport);
 				return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
 			}
 		}
@@ -102,22 +108,54 @@ public class Transport_Service {
 	
 	public ResponseEntity<?> prepareUpdate(String id, TransportDto transportDto) {
 		Response<String> responseObj = null;
+		boolean statusUpdate = false;
 		try {
 			Map<String, String> parametersMap = new HashMap<String, String>();
 			parametersMap.put("name", transportDto.name_transport);
-			parametersMap.put("initials", transportDto.initials);
+			parametersMap.put("initials", "");
+			parametersMap = new HashMap<String, String>();
 			
-			List<Transport> transport_L = transportDAO.findEntityByParameters(parametersMap);
-			if(transport_L != null) {
-				for(Transport t : transport_L) {
+			List<Transport> transportByName_L = transportDAO.findEntityByParameters(parametersMap);
+			parametersMap.put("name", "");
+			parametersMap.put("initials", transportDto.initials);
+			List<Transport> transportByInitials_L = transportDAO.findEntityByParameters(parametersMap);
+
+			if((transportByName_L == null) && (transportByInitials_L == null)) {
+				return update(id, transportDto);
+			}
+			else if((transportByName_L == null) && (transportByInitials_L != null)) {
+				for(Transport t : transportByInitials_L) {
 					if(t.id == id) {
 						return update(id, transportDto);
 					}
 				}
 			}
-			else if(transport_L == null) {
-				return update(id, transportDto);
+			else if((transportByName_L != null) && (transportByInitials_L == null)) {
+				for(Transport t : transportByName_L) {
+					if(t.id == id) {
+						return update(id, transportDto);
+					}
+				}
 			}
+			else if((transportByName_L != null) && (transportByInitials_L != null)) {
+				for(Transport t : transportByName_L) {
+					if(t.id == id) {
+						statusUpdate = true;
+					}
+				}
+				for(Transport t : transportByInitials_L) {
+					if(t.id == id) {
+						statusUpdate = true;
+					}
+				}
+				if(statusUpdate == true) {
+					return update(id, transportDto);
+				}
+			}
+			else {
+					responseObj = new Response<String>(0,HttpExceptionPackSend.FOUND_TRANSPORT.getAction(), transportDto.name_transport);
+					return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
+				}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

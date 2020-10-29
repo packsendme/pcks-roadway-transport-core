@@ -11,7 +11,10 @@ import com.packsendme.roadbrewa.entity.Transport;
 @Repository
 public interface ITransport_Repository extends MongoRepository<Transport, String>{
 
-	@Query("{'$or' : [{'name_transport' : {$eq : ?0}}, {'initials' : {$eq : ?1}}]}")
-	List<Transport> findTransportsByParameters(String name_transport, String initials);
+	@Query("{'name_transport' :  {$eq: ?0}}")
+	List<Transport> findTransportsByName(String name_transport);
+	
+	@Query("{'initials' :  {$eq: ?0}}")
+	List<Transport> findTransportsByIntials(String initials);
 	
 }
