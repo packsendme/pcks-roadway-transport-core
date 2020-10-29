@@ -103,6 +103,8 @@ public class Transport_Dao implements ICrud_Dao<Transport> {
 			else if(!initials_p.equals("")) {
 				entityL = transport_Rep.findTransportsByIntials(initials_p);
 			}
+			System.out.println(" TOTAL LIST ----------- ");
+			System.out.println(" TOTAL LIST"+ entityL.size());
 			return entityL;
 		}
 		catch (MongoClientException e) {
