@@ -94,9 +94,6 @@ public class Initials_Dao implements ICrud_Dao<Initials> {
 	public Initials findOneByName(String name) {
 		try {
 			Initials entityModel = initials_Rep.findInitialsByName(name);
-			System.out.println(" Initials "+ entityModel);
-			System.out.println(" Initials "+ entityModel.name);
-
 			return entityModel;
 		}
 		catch (MongoClientException e) {
