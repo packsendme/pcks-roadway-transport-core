@@ -120,42 +120,28 @@ public class Transport_Service {
 			parametersMap.put("initials", transportDto.initials);
 			List<Transport> transportByInitials_L = transportDAO.findEntityByParameters(parametersMap);
 
-			if((transportByName_L == null) && (transportByInitials_L == null)) {
+			if((transportByName_L.size() == 0 ) && (transportByInitials_L.size() == 0 )) {
 				return update(id, transportDto);
 			}
-			else if((transportByName_L == null) && (transportByInitials_L != null)) {
-				for(Transport t : transportByInitials_L) {
-					if(t.id == id) {
-						return update(id, transportDto);
-					}
-				}
-			}
-			else if((transportByName_L != null) && (transportByInitials_L == null)) {
+			else if((transportByName_L.size() > 0 ) || (transportByInitials_L.size() > 0 )) {
 				for(Transport t : transportByName_L) {
-					if(t.id == id) {
-						return update(id, transportDto);
-					}
-				}
-			}
-			else if((transportByName_L != null) && (transportByInitials_L != null)) {
-				for(Transport t : transportByName_L) {
-					if(t.id == id) {
+					if(t.id.equals(id)) {
 						statusUpdate = true;
 					}
 				}
 				for(Transport t : transportByInitials_L) {
-					if(t.id == id) {
+					if(t.id.equals(id)) {
 						statusUpdate = true;
 					}
 				}
 				if(statusUpdate == true) {
 					return update(id, transportDto);
 				}
-			}
-			else {
+				else{
 					responseObj = new Response<String>(0,HttpExceptionPackSend.FOUND_TRANSPORT.getAction(), transportDto.name_transport);
 					return new ResponseEntity<>(responseObj, HttpStatus.FOUND);
 				}
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
