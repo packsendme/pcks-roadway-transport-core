@@ -134,17 +134,19 @@ public class Transport_Service {
 						statusUpdate = true;
 					}
 				}
-				for(Transport t : transportByInitials_L) {
-					System.out.println("");
-					System.out.println("transportByInitials_L "+ transportByInitials_L.size());
-					System.out.println(" ID "+ t.id);
-					System.out.println("");
-
-					if(t.id.equals(id)) {
-						statusUpdate = true;
-					}
-					else {
-						statusUpdate = false;
+				if(statusUpdate == true) {
+					for(Transport t : transportByInitials_L) {
+						System.out.println("");
+						System.out.println("transportByInitials_L "+ transportByInitials_L.size());
+						System.out.println(" ID "+ t.id);
+						System.out.println("");
+	
+						if(t.id.equals(id)) {
+							statusUpdate = true;
+						}
+						else {
+							statusUpdate = false;
+						}
 					}
 				}
 				if(statusUpdate == true) {
