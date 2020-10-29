@@ -18,5 +18,5 @@ public interface ITransport_Repository extends MongoRepository<Transport, String
 	List<Transport> findTransportsByIntials(String initials);
 	
 	@Query("{'$or' : [{'name_transport' : {$lt : ?0}}, {'initials' : {$lt : ?1}}]}")
-	Transport findTransportsByNameAndInitials(String name, String initials);
+	List<Transport> findTransportsByNameAndInitials(String name, String initials);
 }
