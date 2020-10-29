@@ -93,7 +93,8 @@ public class Initials_Dao implements ICrud_Dao<Initials> {
 	@Override
 	public Initials findOneByName(String name) {
 		try {
-			return null;
+			Initials entityModel = initials_Rep.findInitialsByName(name);
+			return entityModel;
 		}
 		catch (MongoClientException e) {
 			e.printStackTrace();
