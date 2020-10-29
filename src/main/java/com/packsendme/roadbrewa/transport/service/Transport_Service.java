@@ -143,6 +143,9 @@ public class Transport_Service {
 					if(t.id.equals(id)) {
 						statusUpdate = true;
 					}
+					else {
+						statusUpdate = false;
+					}
 				}
 				if(statusUpdate == true) {
 					return update(id, transportDto);
