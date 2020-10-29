@@ -50,7 +50,12 @@ public class Transport_Service {
 			parametersMap.put("name", transportDto.name_transport);
 			parametersMap.put("initials", transportDto.initials);
 			
-			if(transportDAO.findEntityByParameters(parametersMap) == null) {
+			List<Transport> transport_L = transportDAO.findEntityByParameters(parametersMap);
+			System.out.println(" ============================== ");
+			System.out.println(" transport_L "+ transport_L.size());
+			System.out.println(" ============================== ");
+
+			if(transport_L == null) {
 				Transport entity = transportObj.dtoTOentity(transportDto, null, RoadwayManagerConstants.ADD_OP_ROADWAY);
 				entity = transportDAO.save(entity);
 				responseObj = new Response<String>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), entity.id);
