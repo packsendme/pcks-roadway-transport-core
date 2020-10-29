@@ -141,7 +141,7 @@ public class Transport_Service {
 			else if((transportByName_L.size() > 0 ) && (transportByInitials_L.size() > 0 )) {
 				for(Transport t : transportByName_L) {
 					if(t.id.equals(id)) {
-						return update(id, transportDto);
+						statusUpdate = true;
 					}
 				}
 				if(statusUpdate == true) {
