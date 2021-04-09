@@ -43,6 +43,25 @@ public class Transport_Service {
 		}
 	}
 	
+	public ResponseEntity<?> findTransporteByName(String nameTransporte) {
+		Response<TransportListResponse_Dto> responseObj = null;
+		TransportListResponse_Dto transportListDTO = new TransportListResponse_Dto();
+		try {
+			Map<String, String> parametersMap = new HashMap<String, String>();
+			parametersMap.put("name", nameTransporte);
+			parametersMap.put("initials", "");
+			transportListDTO.transports = transportObj.entityTOdto(transportDAO.findEntityByParameters(parametersMap));
+			
+			responseObj = new Response<TransportListResponse_Dto>(0,HttpExceptionPackSend.CREATE_TRANSPORT.getAction(), transportListDTO);
+			return new ResponseEntity<>(responseObj, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			responseObj = new Response<TransportListResponse_Dto>(0,HttpExceptionPackSend.CREATED_BODYWORK.getAction(), null);
+			return new ResponseEntity<>(responseObj, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	public ResponseEntity<?> save(TransportDto transportDto) {
 		Response<String> responseObj = null;
 		try {
