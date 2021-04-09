@@ -44,7 +44,7 @@ public class Transport_Controller {
 	}
 	
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@GetMapping("/transport/type")
+	@GetMapping("/transport")
 	public ResponseEntity<?> getTransport(@RequestHeader("isoLanguageCode") String isoLanguageCode,@RequestHeader("isoCountryCode") String isoCountryCode,
 			@RequestHeader("isoCurrencyCode") String isoCurrencyCode,@RequestHeader("originApp") String originApp) {	
 		return transportService.findAll();
