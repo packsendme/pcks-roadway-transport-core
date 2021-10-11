@@ -1,10 +1,10 @@
-package com.packsendme.roadbrewa.transport.repository;
+package com.packsendme.roadway.transport.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.packsendme.roadbrewa.entity.Initials;
+import com.packsendme.roadway.commons.entity.Initials;
 
 @Repository
 public interface IInitials_Repository extends MongoRepository<Initials, String>{

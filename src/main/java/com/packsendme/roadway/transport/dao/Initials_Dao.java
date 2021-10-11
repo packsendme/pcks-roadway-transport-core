@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.transport.dao;
+package com.packsendme.roadway.transport.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoClientException;
-import com.packsendme.roadbrewa.entity.Initials;
-import com.packsendme.roadbrewa.transport.repository.IInitials_Repository;
+import com.packsendme.roadway.commons.entity.Initials;
+import com.packsendme.roadway.transport.repository.IInitials_Repository;
 
 @Component
 @ComponentScan({"com.packsendme.roadbrewa.transport.repository"})

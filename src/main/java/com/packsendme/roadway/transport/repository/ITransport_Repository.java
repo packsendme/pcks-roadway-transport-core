@@ -1,4 +1,4 @@
-package com.packsendme.roadbrewa.transport.repository;
+package com.packsendme.roadway.transport.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.packsendme.roadbrewa.entity.Transport;
+import com.packsendme.roadway.commons.entity.Transport;
 
 @Repository
 public interface ITransport_Repository extends MongoRepository<Transport, String>{
